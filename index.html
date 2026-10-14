@@ -44,7 +44,7 @@ a { color: var(--szilva); text-underline-offset: 3px; }
 .racs { display: grid; grid-template-columns: 260px minmax(0, 1fr); gap: 36px; align-items: start; }
 @media (max-width: 860px) { .racs { grid-template-columns: minmax(0, 1fr); gap: 20px; } }
 .oldalsav { position: sticky; top: calc(16px + env(safe-area-inset-top, 0px)); display: grid; gap: 16px; }
-@media (max-width: 860px) { .oldalsav { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); padding-block: 10px; margin-inline: -16px; padding-inline: 16px; border-bottom: 1px solid var(--vonal); } .tartalomjegyzek { display: none; } }
+@media (max-width: 860px) { .oldalsav { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); padding-block: 10px; margin-inline: -16px; padding-inline: 16px; border-bottom: 1px solid var(--vonal); } }
 .halad { display: grid; gap: 8px; }
 .halad-sor { display: flex; justify-content: space-between; font-size: 14px; font-weight: 700; }
 .halad-sor span:last-child { color: var(--t3); font-variant-numeric: tabular-nums; }
@@ -56,6 +56,7 @@ a { color: var(--szilva); text-underline-offset: 3px; }
 .tartalomjegyzek .szam { width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; font-size: 12px; background: var(--lap2); color: var(--t2); font-variant-numeric: tabular-nums; }
 .tartalomjegyzek li.kesz .szam { background: var(--zold); color: var(--lap); }
 .tartalomjegyzek li.kesz a { color: var(--t3); text-decoration: line-through; }
+@media (max-width: 860px) { .tartalomjegyzek { display: none; } }   /* telefonon a ragadós sávban csak a haladás látszik */
 
 /* biztonság + e-mail doboz */
 .dobozok { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 14px; margin-bottom: 30px; }
