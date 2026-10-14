@@ -1,0 +1,417 @@
+<!doctype html>
+<html lang="hu">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Esthetic Line hozzáférés-útmutató</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Elrendezés: bal oldalt ragadós haladásjelző + lépéslista, jobbra a lépések kártyái; telefonon egy oszlop, felül haladássáv */
+:root {
+  --bg: #f6f3f4; --lap: #ffffff; --lap2: #f1ecef; --t1: #2a2230; --t2: #5f5466; --t3: #8c8293;
+  --vonal: #e3dbe1; --szilva: #6d4a73; --szilva2: #8f6a95; --zold: #2f7a6c; --zold-bg: #e3f1ed; --figy: #a6582e; --figy-bg: #f8ebe2;
+  --kiemel: #efe5f0;
+  --disp: 'Instrument Serif', 'Times New Roman', Georgia, serif; --body: 'Manrope', system-ui, -apple-system, 'Segoe UI', sans-serif; --mono: 'JetBrains Mono', ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #19151b; --lap: #221d25; --lap2: #2a242e; --t1: #f1eaf2; --t2: #c3b7c7; --t3: #968a9b; --vonal: #3a323e; --szilva: #d4a9da; --szilva2: #b98cc0;
+  --zold: #7fd0bd; --zold-bg: #1f3530; --figy: #f0a77c; --figy-bg: #3a2a21; --kiemel: #34293a; color-scheme: dark; } }
+:root[data-theme="dark"] { --bg: #19151b; --lap: #221d25; --lap2: #2a242e; --t1: #f1eaf2; --t2: #c3b7c7; --t3: #968a9b; --vonal: #3a323e; --szilva: #d4a9da; --szilva2: #b98cc0;
+  --zold: #7fd0bd; --zold-bg: #1f3530; --figy: #f0a77c; --figy-bg: #3a2a21; --kiemel: #34293a; color-scheme: dark; }
+
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--t1); font: 16px/1.65 var(--body); }
+.keret { max-width: 1120px; margin: 0 auto; padding-inline: 16px; padding-block: 28px 80px; }
+h1, h2, h3 { margin: 0; text-wrap: balance; }
+h1 { font: 400 clamp(40px, 7vw, 68px)/1.02 var(--disp); letter-spacing: -.01em; }
+h1 em { font-style: italic; color: var(--szilva); }
+h2 { font: 400 clamp(28px, 4vw, 38px)/1.1 var(--disp); }
+h3 { font-size: 17px; font-weight: 700; }
+p { margin: 0; }
+a { color: var(--szilva); text-underline-offset: 3px; }
+.cimke { font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--szilva); }
+
+/* nyitó rész */
+.nyito { display: grid; gap: 18px; padding-block: 8px 30px; border-bottom: 1px solid var(--vonal); margin-bottom: 28px; }
+.nyito .bev { max-width: 62ch; font-size: 18px; color: var(--t2); }
+.tenyek { display: flex; flex-wrap: wrap; gap: 10px; }
+.teny { display: inline-flex; align-items: center; gap: 8px; padding: 7px 14px; border-radius: 999px; background: var(--lap); border: 1px solid var(--vonal); font-size: 14px; font-weight: 600; color: var(--t2); }
+.teny b { color: var(--t1); }
+
+/* két oszlop */
+.racs { display: grid; grid-template-columns: 260px minmax(0, 1fr); gap: 36px; align-items: start; }
+@media (max-width: 860px) { .racs { grid-template-columns: minmax(0, 1fr); gap: 20px; } }
+.oldalsav { position: sticky; top: calc(16px + env(safe-area-inset-top, 0px)); display: grid; gap: 16px; }
+@media (max-width: 860px) { .oldalsav { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); padding-block: 10px; margin-inline: -16px; padding-inline: 16px; border-bottom: 1px solid var(--vonal); } .tartalomjegyzek { display: none; } }
+.halad { display: grid; gap: 8px; }
+.halad-sor { display: flex; justify-content: space-between; font-size: 14px; font-weight: 700; }
+.halad-sor span:last-child { color: var(--t3); font-variant-numeric: tabular-nums; }
+.sav { height: 8px; border-radius: 99px; background: var(--lap2); overflow: hidden; }
+.sav i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--szilva2), var(--zold)); border-radius: 99px; transition: width .4s; }
+.tartalomjegyzek { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
+.tartalomjegyzek a { display: grid; grid-template-columns: 26px 1fr; gap: 8px; align-items: center; padding: 7px 10px; border-radius: 10px; text-decoration: none; color: var(--t2); font-size: 14px; font-weight: 600; }
+.tartalomjegyzek a:hover { background: var(--lap); color: var(--t1); }
+.tartalomjegyzek .szam { width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; font-size: 12px; background: var(--lap2); color: var(--t2); font-variant-numeric: tabular-nums; }
+.tartalomjegyzek li.kesz .szam { background: var(--zold); color: var(--lap); }
+.tartalomjegyzek li.kesz a { color: var(--t3); text-decoration: line-through; }
+
+/* biztonság + e-mail doboz */
+.dobozok { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 14px; margin-bottom: 30px; }
+.doboz { padding: 18px 20px; border-radius: 18px; background: var(--lap); border: 1px solid var(--vonal); display: grid; gap: 10px; align-content: start; }
+.doboz.figyelem { background: var(--figy-bg); border-color: transparent; }
+.doboz.figyelem h3 { color: var(--figy); }
+.email-sor { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.email { font: 500 16px var(--mono); padding: 8px 12px; border-radius: 10px; background: var(--kiemel); color: var(--t1); user-select: all; overflow-wrap: anywhere; }
+.masol { min-height: 40px; padding: 0 16px; border-radius: 999px; border: 1px solid var(--szilva); background: var(--szilva); color: var(--lap); font: 700 14px var(--body); cursor: pointer; }
+.masol.halk { background: transparent; color: var(--szilva); }
+.masol:focus-visible, .kesz-gomb:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible, a:focus-visible { outline: 3px solid var(--szilva2); outline-offset: 2px; }
+
+/* lépések */
+.lepesek { display: grid; gap: 22px; }
+.lepes { scroll-margin-top: 90px; border-radius: 22px; background: var(--lap); border: 1px solid var(--vonal); overflow: hidden; }
+.lepes-fej { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 16px; padding: 22px 22px 16px; align-items: start; }
+.nagyszam { font: 400 54px/0.8 var(--disp); color: var(--szilva); font-variant-numeric: tabular-nums; min-width: 44px; }
+.lepes.kesz .nagyszam { color: var(--zold); }
+.fej-szoveg { display: grid; gap: 6px; }
+.meta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+.meta span { font-size: 12.5px; font-weight: 700; padding: 3px 10px; border-radius: 999px; background: var(--lap2); color: var(--t2); }
+.meta span.opc { background: var(--kiemel); color: var(--szilva); }
+.lepes-test { padding: 0 22px 22px; display: grid; gap: 16px; }
+.miert { color: var(--t2); max-width: 66ch; }
+ol.lista { margin: 0; padding: 0; list-style: none; counter-reset: l; display: grid; gap: 12px; }
+ol.lista > li { counter-increment: l; display: grid; grid-template-columns: 30px minmax(0, 1fr); gap: 12px; align-items: start; }
+ol.lista > li::before { content: counter(l); width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; font-weight: 800; font-size: 13px; background: var(--kiemel); color: var(--szilva); margin-top: 1px; }
+ol.lista > li > div { min-width: 0; display: grid; gap: 6px; }
+.gomb-nev { display: inline-block; font-weight: 700; font-size: .92em; padding: 1px 8px; border-radius: 7px; background: var(--lap2); border: 1px solid var(--vonal); color: var(--t1); white-space: nowrap; }
+.mezo-tabla { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 6px 14px; padding: 12px 14px; border-radius: 12px; background: var(--lap2); font-size: 15px; }
+.mezo-tabla dt { color: var(--t3); font-weight: 600; } .mezo-tabla dd { margin: 0; font-weight: 700; overflow-wrap: anywhere; }
+@media (max-width: 480px) { .mezo-tabla { grid-template-columns: minmax(0, 1fr); gap: 2px; } .mezo-tabla dd { margin-bottom: 8px; } }
+.elakadas { padding: 14px 16px; border-radius: 14px; background: var(--figy-bg); display: grid; gap: 6px; font-size: 15px; }
+.elakadas b { color: var(--figy); }
+.elakadas ul { margin: 0; padding-left: 18px; display: grid; gap: 4px; }
+.lepes-lab { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 22px; border-top: 1px solid var(--vonal); background: var(--lap2); }
+.kesz-gomb { display: inline-flex; align-items: center; gap: 10px; min-height: 46px; padding: 0 20px; border-radius: 999px; border: 2px solid var(--zold); background: transparent; color: var(--zold); font: 800 15px var(--body); cursor: pointer; }
+.lepes.kesz .kesz-gomb { background: var(--zold); color: var(--lap); }
+.kesz-gomb .pipa { width: 20px; height: 20px; border-radius: 50%; border: 2px solid currentColor; display: grid; place-items: center; font-size: 12px; }
+.lab-szoveg { font-size: 14px; color: var(--t3); }
+
+/* kérdőív */
+.kerdesek { display: grid; gap: 18px; }
+.kerdes { display: grid; gap: 8px; }
+.kerdes label { font-weight: 700; font-size: 15px; }
+.kerdes .seg { font-size: 13.5px; color: var(--t3); margin-top: -4px; }
+.kerdes input, .kerdes textarea, .kerdes select { width: 100%; min-height: 46px; padding: 10px 14px; border-radius: 12px; border: 1px solid var(--vonal); background: var(--bg); color: var(--t1); font: 16px var(--body); }
+.kerdes textarea { min-height: 84px; resize: vertical; line-height: 1.5; }
+.csoport-cim { font: 400 24px var(--disp); color: var(--szilva); padding-top: 6px; border-top: 1px dashed var(--vonal); }
+.csoport-cim:first-child { border-top: 0; padding-top: 0; }
+.kuldes { display: grid; gap: 12px; padding: 18px; border-radius: 18px; background: var(--kiemel); }
+.allapot { font-size: 14px; font-weight: 700; color: var(--zold); min-height: 1.4em; }
+
+/* utána */
+.utana { margin-top: 30px; padding: 26px 24px; border-radius: 22px; background: var(--lap); border: 1px solid var(--vonal); display: grid; gap: 16px; }
+.idovonal { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+.idovonal li { display: grid; grid-template-columns: 14px minmax(0, 1fr); gap: 14px; }
+.idovonal li::before { content: ''; width: 12px; height: 12px; border-radius: 50%; border: 2px solid var(--szilva); margin-top: 7px; }
+.idovonal li.kovetkezo::before { background: var(--szilva); }
+.idovonal b { display: block; }
+.idovonal span { color: var(--t2); font-size: 15px; }
+.lablec { margin-top: 26px; font-size: 13.5px; color: var(--t3); }
+@media (prefers-reduced-motion: reduce) { .sav i { transition: none; } html { scroll-behavior: auto; } }
+html { scroll-behavior: smooth; }
+</style>
+<style>html,body{margin:0}img{max-width:100%}[hidden]{display:none!important}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}</style>
+</head>
+<body>
+
+<div class="keret">
+  <header class="nyito">
+    <span class="cimke">Új weboldal · hozzáférések átadása</span>
+    <h1>Így adod át nekünk a&nbsp;<em>kulcsokat</em> az estheticline.hu-hoz</h1>
+    <p class="bev">Ahhoz, hogy a mostani oldal helyére felépítsük az újat, hozzá kell férnünk néhány fiókhoz. Ez az útmutató kattintásról kattintásra végigvisz rajta. Nem kell előtte értened hozzá, és nem kell egyszerre megcsinálni: amit kipipálsz, azt ez az oldal megjegyzi ezen az eszközön.</p>
+    <div class="tenyek">
+      <span class="teny">⏱ összesen kb. <b>40–50 perc</b></span>
+      <span class="teny">💻 legkényelmesebb <b>számítógépen</b></span>
+      <span class="teny">🔑 jelszót <b>nem kell megadnod</b> nekünk</span>
+    </div>
+  </header>
+
+  <div class="racs">
+    <aside class="oldalsav" aria-label="Haladás">
+      <div class="halad">
+        <div class="halad-sor"><span>Haladás</span><span id="haladSzam">0 / 8 kész</span></div>
+        <div class="sav" role="progressbar" aria-valuemin="0" aria-valuemax="8" aria-valuenow="0" id="sav"><i></i></div>
+      </div>
+      <ol class="tartalomjegyzek" id="tj">
+        <li data-l="wordpress"><a href="#wordpress"><span class="szam">1</span>WordPress-fiók nekünk</a></li>
+        <li data-l="analytics"><a href="#analytics"><span class="szam">2</span>Google Analytics</a></li>
+        <li data-l="cegprofil"><a href="#cegprofil"><span class="szam">3</span>Google Cégprofil</a></li>
+        <li data-l="searchconsole"><a href="#searchconsole"><span class="szam">4</span>Search Console</a></li>
+        <li data-l="facebook"><a href="#facebook"><span class="szam">5</span>Facebook és Instagram</a></li>
+        <li data-l="mediacenter"><a href="#mediacenter"><span class="szam">6</span>Tárhely és domain</a></li>
+        <li data-l="fajlok"><a href="#fajlok"><span class="szam">7</span>Logó és fotók</a></li>
+        <li data-l="kerdesek"><a href="#kerdesek"><span class="szam">8</span>Néhány kérdés</a></li>
+      </ol>
+    </aside>
+
+    <main>
+      <div class="dobozok">
+        <div class="doboz figyelem">
+          <h3>🔒 Mielőtt elkezded: jelszót soha ne küldj</h3>
+          <p>Se e-mailben, se Messengeren, se SMS-ben. Nem is lesz rá szükség: minden lépésben <b>saját hozzáférést adsz nekünk</b> a mi e-mail címünkre, a te jelszavad nálad marad. Ha valaki a nevünkben a jelszavadat kéri, az nem mi vagyunk.</p>
+        </div>
+        <div class="doboz">
+          <h3>Ezt az e-mail címet kell majd beírnod</h3>
+          <p>Több lépésben is erre a címre adsz hozzáférést. Egy gombnyomással kimásolhatod:</p>
+          <div class="email-sor"><span class="email" id="emailCim">info@bluffparlor.com</span><button class="masol" type="button" data-masol="info@bluffparlor.com">Másolás</button></div>
+        </div>
+      </div>
+
+      <div class="lepesek">
+
+        <!-- 1. WordPress -->
+        <section class="lepes" id="wordpress" data-lepes="wordpress">
+          <div class="lepes-fej"><span class="nagyszam">1</span><div class="fej-szoveg"><h2>Saját WordPress-fiók nekünk</h2>
+            <div class="meta"><span>kb. 10 perc</span><span>számítógépen</span></div></div></div>
+          <div class="lepes-test">
+            <p class="miert">A mostani oldal WordPressben készült. Ha kapunk egy saját adminisztrátori fiókot, le tudjuk menteni a teljes oldalt, és át tudjuk venni a szövegeket, árakat, képeket – anélkül, hogy a te belépésedet használnánk.</p>
+            <ol class="lista">
+              <li><div><p>Nyisd meg ezt a címet, és lépj be azzal, amivel eddig is szerkesztetted az oldalt:</p>
+                <div class="email-sor"><span class="email">estheticline.hu/wp-admin</span><a class="masol halk" href="https://estheticline.hu/wp-admin/" target="_blank" rel="noopener">Megnyitás ↗</a></div></div></li>
+              <li><div><p>A bal oldali sötét menüben kattints a <span class="gomb-nev">Felhasználók</span> menüpontra (angolul: <span class="gomb-nev">Users</span>), majd az <span class="gomb-nev">Új felhasználó hozzáadása</span> gombra (<span class="gomb-nev">Add New User</span>).</p></div></li>
+              <li><div><p>Töltsd ki a mezőket pontosan így – a többit hagyd üresen:</p>
+                <dl class="mezo-tabla"><dt>Felhasználónév</dt><dd>bluffparlor</dd><dt>E-mail</dt><dd>info@bluffparlor.com</dd><dt>Jelszó</dt><dd>hagyd, amit az oldal felajánl (mi a saját linkünkön újat állítunk be)</dd><dt>Értesítés küldése a felhasználónak</dt><dd>legyen bepipálva ✓</dd><dt>Szerepkör (Role)</dt><dd>Adminisztrátor (Administrator)</dd></dl></div></li>
+              <li><div><p>Kattints alul az <span class="gomb-nev">Új felhasználó hozzáadása</span> gombra. Ha zöld sávban azt írja, hogy a felhasználó létrejött, kész is vagy.</p></div></li>
+            </ol>
+            <div class="elakadas"><b>Ha elakadsz</b><ul>
+              <li>Nem látod a „Felhasználók” menüt? Akkor nem adminisztrátori fiókkal léptél be – kérdezd meg, ki készítette annak idején az oldalt, vagy írj nekünk.</li>
+              <li>Elfelejtetted a jelszavad? A belépő oldalon az „Elfelejtette a jelszavát?” linkre kattintva kapsz e-mailt.</li>
+              <li>Azt írja, hogy a felhasználónév foglalt? Írd be helyette: <b>bluffparlor2</b>.</li></ul></div>
+          </div>
+          <div class="lepes-lab"><span class="lab-szoveg">Ha megcsináltad, pipáld ki – ez az oldal megjegyzi.</span><button class="kesz-gomb" type="button"><span class="pipa">✓</span><span class="kg-szoveg">Kész, megcsináltam</span></button></div>
+        </section>
+
+        <!-- 2. Analytics -->
+        <section class="lepes" id="analytics" data-lepes="analytics">
+          <div class="lepes-fej"><span class="nagyszam">2</span><div class="fej-szoveg"><h2>Google Analytics – a látogatottsági adatok</h2>
+            <div class="meta"><span>kb. 5 perc</span><span>Google-fiókkal</span></div></div></div>
+          <div class="lepes-test">
+            <p class="miert">Az oldal most is méri, hányan nézik meg és honnan érkeznek. Ezeket a statisztikákat nem szabad elveszíteni, ezért az új oldalt ugyanehhez kötjük – ehhez kell a hozzáférés.</p>
+            <ol class="lista">
+              <li><div><p>Nyisd meg az Analyticset, és lépj be azzal a Google-fiókkal (Gmail-címmel), amellyel annak idején beállították:</p>
+                <div class="email-sor"><span class="email">analytics.google.com</span><a class="masol halk" href="https://analytics.google.com/" target="_blank" rel="noopener">Megnyitás ↗</a></div></div></li>
+              <li><div><p>Bal oldalt legalul kattints a fogaskerékre: <span class="gomb-nev">⚙ Adminisztráció</span>.</p></div></li>
+              <li><div><p>A <b>Tulajdon</b> részben kattints a <span class="gomb-nev">Tulajdon hozzáférés-kezelése</span> sorra.</p></div></li>
+              <li><div><p>Jobb fent nyomd meg a kék <span class="gomb-nev">+</span> gombot, majd válaszd a <span class="gomb-nev">Felhasználók hozzáadása</span> lehetőséget.</p></div></li>
+              <li><div><p>Az e-mail mezőbe írd be: <b>info@bluffparlor.com</b>. A szerepkörnél jelöld be az <span class="gomb-nev">Adminisztrátor</span> lehetőséget, végül jobb fent kattints a <span class="gomb-nev">Hozzáadás</span> gombra.</p></div></li>
+            </ol>
+            <div class="elakadas"><b>Ha elakadsz</b><ul>
+              <li>Nem tudod, melyik Google-fiókkal megy? Próbáld sorban azokat, amiket a szalonhoz használtál. A jó fióknál megjelenik egy „Esthetic Line” nevű tulajdon (azonosítója: <b>G-9RKQWLJBV3</b>).</li>
+              <li>Egyik fiókkal sem látod? Semmi gond – ugord át ezt a lépést, és a kérdéseknél jelezd. Az új oldalra új mérést is tudunk tenni.</li></ul></div>
+          </div>
+          <div class="lepes-lab"><span class="lab-szoveg">Átugrottad? Azt is jelölheted késznek.</span><button class="kesz-gomb" type="button"><span class="pipa">✓</span><span class="kg-szoveg">Kész, megcsináltam</span></button></div>
+        </section>
+
+        <!-- 3. Cégprofil -->
+        <section class="lepes" id="cegprofil" data-lepes="cegprofil">
+          <div class="lepes-fej"><span class="nagyszam">3</span><div class="fej-szoveg"><h2>Google Cégprofil – a térképes adatlap</h2>
+            <div class="meta"><span>kb. 5 perc</span><span>telefonon is megy</span></div></div></div>
+          <div class="lepes-test">
+            <p class="miert">Ez az az adatlap, ami a Google-keresésben és a Térképen jobb oldalt megjelenik: nyitvatartás, telefonszám, értékelések. Az új oldal címét és a foglalási linket itt is frissítenünk kell majd.</p>
+            <ol class="lista">
+              <li><div><p>Lépj be a Google-ba azzal a fiókkal, amelyikkel a cégprofilt kezeled, és nyisd meg:</p>
+                <div class="email-sor"><span class="email">business.google.com</span><a class="masol halk" href="https://business.google.com/" target="_blank" rel="noopener">Megnyitás ↗</a></div>
+                <p class="seg" style="color:var(--t3);font-size:14px">Vagy egyszerűen írd be a Google-keresőbe: <b>Esthetic Line Budapest</b> – bejelentkezve felül megjelenik a „Te kezeled ezt a cégprofilt” sáv.</p></div></li>
+              <li><div><p>Kattints a három pontra <span class="gomb-nev">⋮</span> (Továbbiak), majd a <span class="gomb-nev">Cégprofil beállításai</span> lehetőségre.</p></div></li>
+              <li><div><p>Válaszd a <span class="gomb-nev">Személyek és hozzáférés</span> menüpontot, majd a <span class="gomb-nev">+ Hozzáadás</span> gombot.</p></div></li>
+              <li><div><p>Írd be: <b>info@bluffparlor.com</b>. A hozzáférésnél válaszd a <span class="gomb-nev">Kezelő</span> szintet (nem a „Tulajdonos”-t), és nyomd meg a <span class="gomb-nev">Meghívás</span> gombot.</p></div></li>
+            </ol>
+            <div class="elakadas"><b>Ha elakadsz</b><ul><li>A Google néha átnevezi a menüket. Ha nem találod, csinálj egy képernyőképet arról, amit látsz, és küldd el nekünk – megmondjuk, hova kattints.</li></ul></div>
+          </div>
+          <div class="lepes-lab"><span class="lab-szoveg">A meghívást nekünk még el kell fogadnunk – ez a mi dolgunk.</span><button class="kesz-gomb" type="button"><span class="pipa">✓</span><span class="kg-szoveg">Kész, megcsináltam</span></button></div>
+        </section>
+
+        <!-- 4. Search Console -->
+        <section class="lepes" id="searchconsole" data-lepes="searchconsole">
+          <div class="lepes-fej"><span class="nagyszam">4</span><div class="fej-szoveg"><h2>Google Search Console</h2>
+            <div class="meta"><span>kb. 3 perc</span><span class="opc">ha nincs, ugord át</span></div></div></div>
+          <div class="lepes-test">
+            <p class="miert">Ezzel látszik, mire keresnek rá az emberek, amikor az oldalatokra találnak. Költözéskor ebben jelezzük a Google-nek, hogy az új oldalt is ugyanúgy mutassa – így nem esik vissza a keresési helyezés.</p>
+            <ol class="lista">
+              <li><div><p>Nyisd meg, és lépj be ugyanazzal a Google-fiókkal:</p>
+                <div class="email-sor"><span class="email">search.google.com/search-console</span><a class="masol halk" href="https://search.google.com/search-console" target="_blank" rel="noopener">Megnyitás ↗</a></div></div></li>
+              <li><div><p>Ha azt látod, hogy „Tulajdon hozzáadása” vagy „Kezdés most”, akkor nincs beállítva – <b>ugord át ezt a lépést</b>, mi beállítjuk.</p></div></li>
+              <li><div><p>Ha megjelenik az estheticline.hu: bal oldalt lent <span class="gomb-nev">Beállítások</span> → <span class="gomb-nev">Felhasználók és engedélyek</span> → <span class="gomb-nev">Felhasználó hozzáadása</span>.</p></div></li>
+              <li><div><p>E-mail: <b>info@bluffparlor.com</b>, engedély: <span class="gomb-nev">Teljes</span>, majd <span class="gomb-nev">Hozzáadás</span>.</p></div></li>
+            </ol>
+          </div>
+          <div class="lepes-lab"><span class="lab-szoveg">Nincs ilyened? Jelöld késznek nyugodtan.</span><button class="kesz-gomb" type="button"><span class="pipa">✓</span><span class="kg-szoveg">Kész, megcsináltam</span></button></div>
+        </section>
+
+        <!-- 5. Facebook / Instagram -->
+        <section class="lepes" id="facebook" data-lepes="facebook">
+          <div class="lepes-fej"><span class="nagyszam">5</span><div class="fej-szoveg"><h2>Facebook-oldal és Instagram</h2>
+            <div class="meta"><span>kb. 10 perc</span><span>számítógépen egyszerűbb</span></div></div></div>
+          <div class="lepes-test">
+            <p class="miert">A közösségi média is része az együttműködésnek, és az új oldalon is ezek az oldalak lesznek belinkelve (facebook.com/estheticlinebeautycenter, instagram.com/estheticlinebeauty). Részleges hozzáférést kérünk: posztolni, üzenetekre válaszolni, statisztikát nézni tudunk vele, de az oldal tulajdonosa továbbra is te maradsz.</p>
+            <ol class="lista">
+              <li><div><p>Számítógépen nyisd meg a Facebookot, és lépj be a saját fiókodba. Jobb fent kattints a profilképedre, és <b>válts át az Esthetic Line oldalra</b> („Esthetic Line Beauty Center” néven látod).</p></div></li>
+              <li><div><p>Ismét a profilképre kattintva: <span class="gomb-nev">Beállítások és adatvédelem</span> → <span class="gomb-nev">Beállítások</span>.</p></div></li>
+              <li><div><p>Bal oldalt keresd meg: <span class="gomb-nev">Oldal beállítása</span> → <span class="gomb-nev">Oldalhozzáférés</span>.</p></div></li>
+              <li><div><p>A „Facebook-hozzáféréssel rendelkező személyek” résznél kattints az <span class="gomb-nev">Új hozzáadása</span> gombra, majd a <span class="gomb-nev">Tovább</span>-ra.</p></div></li>
+              <li><div><p>A keresőbe írd be: <b>info@bluffparlor.com</b>, és válaszd ki a megjelenő fiókot. A <b>„Teljes vezérlés”</b> kapcsolót hagyd <b>kikapcsolva</b>, majd kattints a <span class="gomb-nev">Hozzáférés megadása</span> gombra. A Facebook ilyenkor biztonsági okból a jelszavadat kéri – ez rendben van, a saját oldalán kéri, nem mi.</p></div></li>
+              <li><div><p><b>Instagram:</b> ha az Instagram-fiók össze van kötve a Facebook-oldallal (a legtöbb szalonnál igen), ezzel automatikusan megvan. Ha nincs összekötve, a kérdéseknél jelezd, és megoldjuk együtt.</p></div></li>
+            </ol>
+            <div class="elakadas"><b>Ha elakadsz</b><ul>
+              <li>Nem jelenik meg semmi az e-mail címre? Akkor írd be, hogy <b>bluffparlor</b>, vagy kérj tőlünk egy profil-linket.</li>
+              <li>A Facebook menüi gyakran változnak. Egy képernyőkép többet ér ezer szónál – küldd el, és megmutatjuk.</li></ul></div>
+          </div>
+          <div class="lepes-lab"><span class="lab-szoveg">A felkérést mi fogadjuk el a saját fiókunkban.</span><button class="kesz-gomb" type="button"><span class="pipa">✓</span><span class="kg-szoveg">Kész, megcsináltam</span></button></div>
+        </section>
+
+        <!-- 6. MediaCenter -->
+        <section class="lepes" id="mediacenter" data-lepes="mediacenter">
+          <div class="lepes-fej"><span class="nagyszam">6</span><div class="fej-szoveg"><h2>Tárhely és domain (MediaCenter)</h2>
+            <div class="meta"><span>15 perces közös hívás</span><span class="opc">ezt NE egyedül</span></div></div></div>
+          <div class="lepes-test">
+            <p class="miert">Az estheticline.hu cím, a weboldal tárhelye és az e-mail címeitek is a MediaCenter nevű szolgáltatónál vannak. Itt könnyű véletlenül olyat állítani, amitől leállna a levelezés – ezért ezt a részt <b>egy rövid közös hívásban</b> csináljuk meg, te csak kattintasz, mi mondjuk, hova.</p>
+            <ol class="lista">
+              <li><div><p><b>Most csak készítsd elő</b> (nem kell elküldeni): a MediaCenter ügyfélkapu belépési adatait, és a legutóbbi MediaCenter-számlát vagy díjbekérőt.</p></div></li>
+              <li><div><p>Nézd meg a számlán vagy az ügyfélkapuban: <b>kinek a nevére</b> van a domain (cég vagy magánszemély), és <b>meddig van kifizetve</b> a tárhely.</p></div></li>
+              <li><div><p>Írd meg nekünk, mikor érsz rá 15 percre (a kérdéseknél is be tudod írni). A hívás alatt <b>külön hozzáférést</b> hozunk létre nekünk a tárhelyhez – a te ügyfélkapus jelszavad nálad marad.</p></div></li>
+            </ol>
+            <div class="elakadas"><b>Fontos</b><ul>
+              <li>A megbeszélés előtt <b>ne mondj fel és ne módosíts</b> semmit a MediaCenternél.</li>
+              <li>Az e-mail címeitek (pl. info@estheticline.hu) a költözés alatt is végig működnek, azokhoz nem nyúlunk.</li></ul></div>
+          </div>
+          <div class="lepes-lab"><span class="lab-szoveg">Kész, ha előkészítetted és írtál időpontot.</span><button class="kesz-gomb" type="button"><span class="pipa">✓</span><span class="kg-szoveg">Kész, megcsináltam</span></button></div>
+        </section>
+
+        <!-- 7. Fájlok -->
+        <section class="lepes" id="fajlok" data-lepes="fajlok">
+          <div class="lepes-fej"><span class="nagyszam">7</span><div class="fej-szoveg"><h2>Logó és saját fotók</h2>
+            <div class="meta"><span>amikor van időd</span><span>WeTransferrel a legegyszerűbb</span></div></div></div>
+          <div class="lepes-test">
+            <p class="miert">A bemutató oldalon most még illusztrációk vannak. A saját fotóitokkal lesz igazán a tiétek – és a logó eredeti fájljával minden méretben éles marad.</p>
+            <ol class="lista">
+              <li><div><p><b>Logó:</b> keresd meg az eredeti fájlt (<b>.svg, .ai, .eps vagy .pdf</b>) – általában a grafikustól, aki tervezte. Ha nincs meg, a legnagyobb méretű képet küldd.</p></div></li>
+              <li><div><p><b>Fotók:</b> recepció, minden terem, a munkatársak portréi, és ha van, a termékek. Telefonnal is jó, ha:</p>
+                <dl class="mezo-tabla"><dt>Tájolás</dt><dd>fekvő (vízszintes) a termekről, álló a portrékról</dd><dt>Fény</dt><dd>nappali, a lámpák is égjenek, vaku nélkül</dd><dt>Nagyítás</dt><dd>ne zoomolj – inkább lépj közelebb</dd><dt>Minőség</dt><dd>a telefon eredeti fotója (ne Messengeren küldd, mert az összenyomja)</dd></dl></div></li>
+              <li><div><p><b>Küldés:</b> nyisd meg a <a href="https://wetransfer.com/" target="_blank" rel="noopener">wetransfer.com</a> oldalt (ingyenes, nem kell regisztrálni) → <span class="gomb-nev">+ Fájlok hozzáadása</span> → a címzetthez írd: <b>info@bluffparlor.com</b> → a saját e-mail címedet is meg kell adnod → <span class="gomb-nev">Átvitel</span>. A rendszer kódot küld a te e-mail címedre, azt írd be, és már megy is.</p></div></li>
+              <li><div><p>Tipp: a fotókat a <b>Szalon-admin</b> felületen (bluffparlor.com/szalonadmin) ti magatok is fel tudjátok tölteni, bármikor kicserélhetitek őket.</p></div></li>
+            </ol>
+          </div>
+          <div class="lepes-lab"><span class="lab-szoveg">Elég, ha a logó megvan – a fotók jöhetnek később is.</span><button class="kesz-gomb" type="button"><span class="pipa">✓</span><span class="kg-szoveg">Kész, megcsináltam</span></button></div>
+        </section>
+
+        <!-- 8. Kérdések -->
+        <section class="lepes" id="kerdesek" data-lepes="kerdesek">
+          <div class="lepes-fej"><span class="nagyszam">8</span><div class="fej-szoveg"><h2>Néhány kérdés</h2>
+            <div class="meta"><span>kb. 10 perc</span><span>amit nem tudsz, hagyd üresen</span></div></div></div>
+          <div class="lepes-test">
+            <p class="miert">A válaszaidat ez az oldal megjegyzi, nem vesznek el, ha bezárod. A végén egy gombbal kimásolod, és elküldöd nekünk Messengeren vagy e-mailben.</p>
+            <form class="kerdesek" id="kerdoiv" autocomplete="off">
+              <div class="csoport-cim">Webshop</div>
+              <div class="kerdes"><label for="k-webshop">Kell-e webshop az új oldalon is? Mit árultok rajta?</label><textarea id="k-webshop" name="Webshop" placeholder="pl. igen, krémeket és ajándékutalványt"></textarea></div>
+              <div class="kerdes"><label for="k-fizetes">Milyen online fizetést használtok?</label><p class="seg">pl. SimplePay, Barion, banki kártyás fizetés, vagy csak utánvét / átutalás</p><input id="k-fizetes" name="Online fizetés"></div>
+              <div class="kerdes"><label for="k-szamlazo">Melyik számlázó programot használjátok?</label><p class="seg">pl. Számlázz.hu, Billingo, könyvelő intézi</p><input id="k-szamlazo" name="Számlázó"></div>
+              <div class="kerdes"><label for="k-szallitas">Szállítási módok és díjak</label><input id="k-szallitas" name="Szállítás" placeholder="pl. GLS 1990 Ft, személyes átvétel a szalonban"></div>
+              <div class="csoport-cim">Időpontfoglalás</div>
+              <div class="kerdes"><label for="k-foglalas">Vannak-e előre lefoglalt időpontok a mostani oldal foglalójában?</label><select id="k-foglalas" name="Előre foglalt időpontok a mostani oldalon"><option value="">Válassz…</option><option>Igen, vannak</option><option>Nincsenek / nem használjuk</option><option>Nem tudom</option></select></div>
+              <div class="kerdes"><label for="k-foglalo">Használtok más foglalót is? Ki melyiket?</label><p class="seg">pl. Salonic, Booksy, telefonon és füzetben</p><textarea id="k-foglalo" name="Más foglalók"></textarea></div>
+              <div class="csoport-cim">Hírlevél és nyelvek</div>
+              <div class="kerdes"><label for="k-hirlevel">Küldtök még hírlevelet?</label><select id="k-hirlevel" name="Hírlevél"><option value="">Válassz…</option><option>Igen, rendszeresen</option><option>Ritkán</option><option>Nem, nem kell</option></select></div>
+              <div class="kerdes"><label for="k-angol">Kell angol nyelvű változat is? (a mostani oldalon van)</label><select id="k-angol" name="Angol változat"><option value="">Válassz…</option><option>Igen, kell</option><option>Nem kell</option><option>Később</option></select></div>
+              <div class="csoport-cim">Cégadatok (az impresszumhoz)</div>
+              <div class="kerdes"><label for="k-cegnev">Cégnév</label><input id="k-cegnev" name="Cégnév"></div>
+              <div class="kerdes"><label for="k-szekhely">Székhely</label><input id="k-szekhely" name="Székhely"></div>
+              <div class="kerdes"><label for="k-adoszam">Adószám és cégjegyzékszám</label><input id="k-adoszam" name="Adószám, cégjegyzékszám"></div>
+              <div class="kerdes"><label for="k-jogi">Van már ÁSZF és adatkezelési tájékoztató?</label><select id="k-jogi" name="ÁSZF, adatkezelési tájékoztató"><option value="">Válassz…</option><option>Igen, a mostani oldalon</option><option>Igen, máshol (elküldöm)</option><option>Nincs, kérnénk</option><option>Nem tudom</option></select></div>
+              <div class="kerdes"><label for="k-email">Milyen e-mail címeket használtok a szalonnál?</label><p class="seg">csak a címeket, jelszót nem! – pl. info@estheticline.hu</p><input id="k-email" name="Használt e-mail címek"></div>
+              <div class="csoport-cim">Hozzáférések, időpontok</div>
+              <div class="kerdes"><label for="k-hianyzo">Melyik lépés nem sikerült, vagy hol akadtál el?</label><textarea id="k-hianyzo" name="Elakadás"></textarea></div>
+              <div class="kerdes"><label for="k-hivas">Mikor érsz rá 15 percre a MediaCenteres közös hívásra?</label><input id="k-hivas" name="Időpont a közös híváshoz" placeholder="pl. kedd vagy csütörtök délután 3 után"></div>
+              <div class="kerdes"><label for="k-eles">Mikorra szeretnétek az új oldalt élesben?</label><input id="k-eles" name="Élesítés"></div>
+              <div class="kerdes"><label for="k-jovahagy">Ki hagyja jóvá a végleges oldalt?</label><input id="k-jovahagy" name="Jóváhagyó"></div>
+
+              <div class="kuldes">
+                <h3>Kész? Másold ki a válaszaidat</h3>
+                <p>Kattints a gombra, majd illeszd be egy Messenger-üzenetbe vagy e-mailbe (Ctrl+V, telefonon: hosszan nyomva → Beillesztés), és küldd el nekünk.</p>
+                <div class="email-sor"><button class="masol" type="button" id="valaszMasol">Válaszok másolása</button><span class="allapot" id="valaszAllapot" role="status"></span></div>
+                <textarea id="valaszSzoveg" readonly hidden style="width:100%;min-height:160px;border-radius:12px;border:1px solid var(--vonal);background:var(--lap);color:var(--t1);padding:12px;font:14px var(--mono)"></textarea>
+              </div>
+            </form>
+          </div>
+          <div class="lepes-lab"><span class="lab-szoveg">Akkor pipáld ki, ha elküldted.</span><button class="kesz-gomb" type="button"><span class="pipa">✓</span><span class="kg-szoveg">Kész, elküldtem</span></button></div>
+        </section>
+      </div>
+
+      <section class="utana" aria-labelledby="utanaCim">
+        <h2 id="utanaCim">Mi történik ezután?</h2>
+        <ol class="idovonal">
+          <li class="kovetkezo"><div><b>Visszajelzünk</b><span>Elfogadjuk a meghívásokat, és szólunk, ha valami hiányzik.</span></div></li>
+          <li><div><b>Közös hívás a MediaCenterről</b><span>15 perc, egy általad választott időpontban.</span></div></li>
+          <li><div><b>Felépítjük az új oldalt</b><span>A mostani oldal végig elérhető marad, a vendégeitek semmit nem vesznek észre.</span></div></li>
+          <li><div><b>Te jóváhagyod</b><span>Végignézed, kéred a módosításokat – amíg nem tetszik, nem élesítünk.</span></div></li>
+          <li><div><b>Élesítés</b><span>Az estheticline.hu átáll az új oldalra. Az e-mail címeitek közben végig működnek.</span></div></li>
+          <li><div><b>Következő lépés: időpontfoglalás</b><span>Ha megfelel a csomag, a foglalási rendszer és a foglalási napló beépítése jön.</span></div></li>
+        </ol>
+      </section>
+      <p class="lablec">Ha bármi nem egyértelmű, írj nekünk nyugodtan: <b>info@bluffparlor.com</b>. Inkább kérdezz, mint hogy véletlenül olyat állíts, amit nem akartál.</p>
+    </main>
+  </div>
+</div>
+
+<script>
+(() => {
+  const KULCS = 'el-hozzaferes-v1', LEPESEK = ['wordpress', 'analytics', 'cegprofil', 'searchconsole', 'facebook', 'mediacenter', 'fajlok', 'kerdesek'];
+  const olvas = () => { try { return JSON.parse(localStorage.getItem(KULCS)) || {}; } catch { return {}; } };
+  const ir = (o) => { try { localStorage.setItem(KULCS, JSON.stringify(o)); } catch { /* privát mód: csak most él */ } };
+  let A = olvas(); A.kesz = A.kesz || {}; A.valasz = A.valasz || {};
+
+  function frissit() {
+    let n = 0;
+    for (const l of LEPESEK) {
+      const k = !!A.kesz[l]; if (k) n++;
+      const s = document.querySelector(`[data-lepes="${l}"]`); s.classList.toggle('kesz', k);
+      s.querySelector('.kg-szoveg').textContent = k ? 'Kész ✓ (visszavonás)' : (l === 'kerdesek' ? 'Kész, elküldtem' : 'Kész, megcsináltam');
+      s.querySelector('.kesz-gomb').setAttribute('aria-pressed', String(k));
+      document.querySelector(`#tj [data-l="${l}"]`).classList.toggle('kesz', k);
+    }
+    document.getElementById('haladSzam').textContent = n === LEPESEK.length ? 'Minden kész – köszönjük!' : `${n} / ${LEPESEK.length} kész`;
+    const sav = document.getElementById('sav'); sav.setAttribute('aria-valuenow', n); sav.firstElementChild.style.width = (n / LEPESEK.length * 100) + '%';
+  }
+  document.querySelectorAll('.lepes').forEach((s) => s.querySelector('.kesz-gomb').addEventListener('click', () => {
+    const l = s.dataset.lepes; A.kesz[l] = !A.kesz[l]; ir(A); frissit();
+    if (A.kesz[l]) { const i = LEPESEK.indexOf(l), kov = LEPESEK.slice(i + 1).find((x) => !A.kesz[x]); if (kov) setTimeout(() => document.getElementById(kov).scrollIntoView({ block: 'start' }), 250); }
+  }));
+
+  // másolás gombok (e-mail cím)
+  async function masol(szoveg, gomb, ok) {
+    try { await navigator.clipboard.writeText(szoveg); const r = gomb.textContent; gomb.textContent = ok || 'Másolva ✓'; setTimeout(() => (gomb.textContent = r), 1800); return true; }
+    catch { return false; }
+  }
+  document.querySelectorAll('[data-masol]').forEach((b) => b.addEventListener('click', async () => {
+    if (!(await masol(b.dataset.masol, b))) { const e = document.getElementById('emailCim'); const r = document.createRange(); r.selectNodeContents(e); const s = getSelection(); s.removeAllRanges(); s.addRange(r); b.textContent = 'Kijelölve – másold ki'; }
+  }));
+
+  // kérdőív: piszkozat mentése + válaszok összeállítása
+  const f = document.getElementById('kerdoiv');
+  f.querySelectorAll('input, textarea:not([readonly]), select').forEach((el) => { if (A.valasz[el.id] != null) el.value = A.valasz[el.id];
+    el.addEventListener('input', () => { A.valasz[el.id] = el.value; ir(A); }); });
+  f.addEventListener('submit', (e) => e.preventDefault());
+  document.getElementById('valaszMasol').addEventListener('click', async (e) => {
+    const sorok = ['Esthetic Line – válaszok az új weboldalhoz', ''];
+    const kesz = LEPESEK.filter((l) => A.kesz[l]).length; sorok.push(`Elkészült lépések: ${kesz} / ${LEPESEK.length}`, '');
+    f.querySelectorAll('input, textarea:not([readonly]), select').forEach((el) => sorok.push(`• ${el.name}: ${el.value.trim() || '—'}`));
+    const t = sorok.join('\n'), all = document.getElementById('valaszAllapot'), ta = document.getElementById('valaszSzoveg');
+    if (await masol(t, e.currentTarget, 'Kimásolva ✓')) { all.textContent = 'Most illeszd be egy üzenetbe, és küldd el.'; ta.hidden = true; }
+    else { ta.value = t; ta.hidden = false; ta.focus(); ta.select(); all.textContent = 'Kijelöltem a szöveget – másold ki (Ctrl+C), és küldd el.'; }
+  });
+  frissit();
+})();
+</script>
+
+</body>
+</html>
