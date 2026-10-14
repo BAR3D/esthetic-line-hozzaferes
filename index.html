@@ -272,13 +272,21 @@ html { scroll-behavior: smooth; }
         <!-- 6. MediaCenter -->
         <section class="lepes" id="mediacenter" data-lepes="mediacenter">
           <div class="lepes-fej"><span class="nagyszam">6</span><div class="fej-szoveg"><h2>Tárhely és domain (MediaCenter)</h2>
-            <div class="meta"><span>15 perces közös hívás</span><span class="opc">ezt NE egyedül</span></div></div></div>
+            <div class="meta"><span>15–20 perces közös hívás</span><span class="opc">ezt NE egyedül</span></div></div></div>
           <div class="lepes-test">
             <p class="miert">Az estheticline.hu cím, a weboldal tárhelye és az e-mail címeitek is a MediaCenter nevű szolgáltatónál vannak. Itt könnyű véletlenül olyat állítani, amitől leállna a levelezés – ezért ezt a részt <b>egy rövid közös hívásban</b> csináljuk meg, te csak kattintasz, mi mondjuk, hova.</p>
             <ol class="lista">
               <li><div><p><b>Most csak készítsd elő</b> (nem kell elküldeni): a MediaCenter ügyfélkapu belépési adatait, és a legutóbbi MediaCenter-számlát vagy díjbekérőt.</p></div></li>
               <li><div><p>Nézd meg a számlán vagy az ügyfélkapuban: <b>kinek a nevére</b> van a domain (cég vagy magánszemély), és <b>meddig van kifizetve</b> a tárhely.</p></div></li>
-              <li><div><p>Írd meg nekünk, mikor érsz rá 15 percre (a kérdéseknél is be tudod írni). A hívás alatt <b>külön hozzáférést</b> hozunk létre nekünk a tárhelyhez – a te ügyfélkapus jelszavad nálad marad.</p></div></li>
+              <li><div><p>Írd meg nekünk, mikor érsz rá 15 percre (a kérdéseknél is be tudod írni). A hívás alatt <b>külön hozzáféréseket</b> hozunk létre nekünk – a te ügyfélkapus jelszavad végig nálad marad.</p></div></li>
+              <li><div><p><b>Ezeket állítjuk be együtt a hívásban</b> (te kattintasz, mi mondjuk, hova):</p>
+                <dl class="mezo-tabla">
+                  <dt>SSH / SFTP</dt><dd>biztonságos fájl-hozzáférés a weboldal mappájához – ha a csomagotok engedi. Itt nem jelszót adsz meg, hanem a mi <b>nyilvános kulcsunkat</b> másolod be (ez nem titok, bárki láthatja; csak a mi gépünkkel működik).</dd>
+                  <dt>FTP-fiók</dt><dd>ha SSH nincs a csomagban: egy külön FTP-felhasználó csak nekünk, saját jelszóval – ezt a hívás alatt a MediaCenter felületén generáljuk, nem kell kimondani vagy elküldeni.</dd>
+                  <dt>Adatbázis</dt><dd>egy külön adatbázis-felhasználó, hogy a mostani oldal tartalmát (árak, szövegek, foglalások) teljesen le tudjuk menteni.</dd>
+                  <dt>DNS-kezelés</dt><dd>ezzel irányítjuk majd át az estheticline.hu címet az új oldalra, úgy, hogy az e-mailek a MediaCenternél maradnak és végig működnek.</dd>
+                  <dt>Mentés</dt><dd>mielőtt bármihez nyúlnánk, teljes mentést készítünk a mostani oldalról és az adatbázisról.</dd>
+                </dl></div></li>
             </ol>
             <div class="elakadas"><b>Fontos</b><ul>
               <li>A megbeszélés előtt <b>ne mondj fel és ne módosíts</b> semmit a MediaCenternél.</li>
